@@ -1,8 +1,15 @@
-from django.contrib.auth import get_user_model
-from rest_framework import viewsets
+import json
 
-from .serializers import UserSerializer, LinkSerializer, ProfileSerializer
-from ..links.models import Link, Profile
+from django.contrib.auth import get_user_model
+from rest_framework import viewsets, response
+
+from .serializers import (
+    UserSerializer,
+    LinkSerializer,
+    ProfileSerializer,
+    ProfileThemeSerializer,
+)
+from ..links.models import Link, Profile, ProfileTheme, THEME_CHOICES
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -18,3 +25,13 @@ class LinkViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+
+class ProfileThemeViewSet(viewsets.ModelViewSet):
+    queryset = ProfileTheme.objects.all()
+    serializer_class = ProfileThemeSerializer
+    http_method_names = ['get']
+
+    def list(self, *args, **kwargs):
+        return response.Response([theme[0] for theme in THEME_CHOICES])
+

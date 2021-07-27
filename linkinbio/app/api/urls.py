@@ -1,13 +1,14 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from .views import UserViewSet, ProfileViewSet, LinkViewSet
+from .views import UserViewSet, ProfileViewSet, LinkViewSet, ProfileThemeViewSet
 
 # Routers provide a way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r"users", UserViewSet)
 router.register(r"links", LinkViewSet)
 router.register(r"profiles", ProfileViewSet)
+router.register(r"themes", ProfileThemeViewSet)
 
 
 # Wire up our API using automatic URL routing.

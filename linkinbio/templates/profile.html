@@ -1,0 +1,51 @@
+<html data-theme={{ profile.theme.name|default:"light" }}>
+
+<head>
+  <meta>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/1.10.0/full.css">
+  <style>
+    .name {
+      font-weight: 600;
+    }
+    a.link-card {
+      width:100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mx-auto px-4 max-w-xl">
+    <div class="grid grid-cols-1 gap-2 place-items-center h-48">
+      <div class="my-6 avatar indicator">
+        <div class="indicator-item badge">NEW USER!</div>
+        <div class="mb-8 rounded-full w-32 h-32 ring ring-primary ring-offset-base-100 ring-offset-2">
+          <img src="https://images.unsplash.com/photo-1534126416832-a88fdf2911c2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="">
+        </div>
+      </div>
+      <p class="text-center name text-2xl">{{ profile.user.get_full_name|default:profile.user.username }}</p>
+      <p class="text-left text-sm">{{ profile.bio }}</p>
+      <span class="divider"></span>
+      {% for link in profile.links.all %}
+      <a href="{{ link.link }}" class="link-card">
+        <div class="flex flex-col w-full">
+          <div class="card card-side bordered">
+            <figure>
+              <img height="16" width="32" src="https://via.placeholder.com/110" />
+            </figure>
+            <div class="card-body">
+              <div class="card-title">
+                <span class="normal-case">{{ link.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>  
+      {% endfor %}
+      <span class="divider"></span>
+      <p>create your own page at <a href="https://b2l.ink/">Bio2Link</a></p>
+    </div>
+  </div>
+</body>
+
+</html>

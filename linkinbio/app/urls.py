@@ -19,7 +19,15 @@ from django.contrib import admin
 from django.urls import path, include
 
 from .api.urls import urlpatterns as api_url_patterns
+from .links.views import ProfileView
 
-urlpatterns = [path("admin/", admin.site.urls), path("api/", include(api_url_patterns))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path(
+        "api/",
+        include(api_url_patterns),
+    ),
+    path("<username>/", ProfileView.as_view(), name="profile"),
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
