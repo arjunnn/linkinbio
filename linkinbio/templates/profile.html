@@ -1,20 +1,20 @@
+{% load static %}
 <html data-theme={{ profile.theme.name|default:"light" }}>
 
 <head>
   <meta>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/1.10.0/full.css">
+  <link rel="stylesheet" href="{% static 'css/themes.css' %}">
   <style>
-    .name {
-      font-weight: 600;
-    }
-    a.link-card {
-      width:100%;
+    body {
+      background: url('http://thepatternlibrary.com/img/ar.png') repeat;
+
     }
   </style>
 </head>
-
-<body>
+{{form}}
+<body class="h-screen">
   <div class="container mx-auto px-4 max-w-xl">
     <div class="grid grid-cols-1 gap-2 place-items-center h-48">
       <div class="my-6 avatar indicator">
@@ -31,7 +31,8 @@
         <div class="flex flex-col w-full">
           <div class="card card-side bordered">
             <figure>
-              <img height="16" width="32" src="https://via.placeholder.com/110" />
+              <!-- <img height="16" width="32" src="https://via.placeholder.com/110" /> -->
+              <img src="https://unpkg.com/simple-icons@5.8.0/icons/snapchat.svg" />
             </figure>
             <div class="card-body">
               <div class="card-title">

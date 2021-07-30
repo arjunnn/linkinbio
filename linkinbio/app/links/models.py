@@ -1,6 +1,7 @@
-from django.db import models
+from uuid import uuid4
+
 from django.contrib.auth import get_user_model
-from django.conf import settings
+from django.db import models
 
 THEME_CHOICES = (
     ("light", "light"),
@@ -38,6 +39,9 @@ class Profile(models.Model):
     bio = models.CharField(max_length=240)
     image = models.ImageField(verbose_name="icon", null=True, upload_to="images/")
     theme = models.ForeignKey(ProfileTheme, null=True, on_delete=models.SET_NULL)
+    created = models.DateTimeField(auto_now=True)
+    last_updated = models.DateTimeField(null=True)
+    hits = models.IntegerField(default=0)
 
 
 class Link(models.Model):
@@ -48,3 +52,5 @@ class Link(models.Model):
         Profile, related_name="links", on_delete=models.CASCADE, null=True
     )
     active = models.BooleanField(default=True)
+    uuid = models.UUIDField(default=uuid4(), db_index=True, verbose_name="UUID")
+    hits = models.IntegerField(default=0)

@@ -22,7 +22,6 @@ class ProfileThemeSerializer(serializers.ModelSerializer):
         fields = ["name"]
 
 
-
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     links = LinkSerializer(many=True, read_only=True)
     user = UserSerializer(read_only=True)
@@ -33,11 +32,8 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "user", "bio", "links", "image", "theme"]
 
     def update(self, instance, validated_data):
-        name = validated_data.get('theme').get('name')
+        name = validated_data.get("theme").get("name")
         theme, created = ProfileTheme.objects.get_or_create(name=name)
         instance.theme = theme
         instance.save()
         return instance
-
-
-

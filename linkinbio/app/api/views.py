@@ -30,8 +30,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 class ProfileThemeViewSet(viewsets.ModelViewSet):
     queryset = ProfileTheme.objects.all()
     serializer_class = ProfileThemeSerializer
-    http_method_names = ['get']
+    http_method_names = ["get"]
 
     def list(self, *args, **kwargs):
         return response.Response([theme[0] for theme in THEME_CHOICES])
-

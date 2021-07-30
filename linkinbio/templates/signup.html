@@ -1,0 +1,95 @@
+{% load static %}
+<html data-theme="cupcake">
+	<head>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="{% static 'images/apple-touch-icon.png' %}"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="{% static 'images/favicon-32x32.png' %}"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="{% static 'images/favicon-16x16.png' %}"
+		/>
+		<link rel="manifest" href="{% static 'images/site.webmanifest' %}" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/1.10.0/full.css"
+		/>
+		<link rel="stylesheet" href="{% static 'css/themes.css' %}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+
+	<body>
+		<div class="flex flex-col h-screen justify-around items-center">
+			<div class="flex flex-col justify-center items-center">
+				<h1 class="mb-5 text-5xl font-bold text-primary">Bio2Link</h1>
+				<h3 class="mb-5 text-2xl font-bold text-secondary">
+					The one link for all your links
+				</h3>
+			</div>
+			<div class="flex-col justify-center hero-content lg:flex-row gap-20">
+				<div class="text-center lg:text-left">
+					<h1 class="mb-5 text-4xl font-bold">Hey 👋</h1>
+					<p class="mb-5">Sign up and claim your <b>b2l.ink</b> name now!</p>
+				</div>
+				<div class="p-10 card bg-base-200">
+					<div class="card-title">Sign up</div>
+					<form class="form-control">
+						<input
+							type="email"
+							placeholder="email"
+							class="input"
+							title="email"
+						/>
+						<div class="my-6 indicator">
+							<div class="indicator-item"></div>
+							<input
+								type="text"
+								placeholder="username"
+								value="{{ request.GET.username }}"
+								class="input"
+								id="username"
+								pattern="[\w]+"
+								title="Alphanumeric only"
+							/>
+						</div>
+						<input
+							type="password"
+							placeholder="password"
+							class="input"
+							title="password"
+						/>
+						<input
+							type="submit"
+							value="sign up"
+							class="btn btn-wide btn-primary"
+						/>
+					</form>
+					<p>
+						Have an account?
+						<a href="{% url 'login' %}" class="link">sign in</a>
+					</p>
+				</div>
+			</div>
+			<p>made with 💜 by <a href="https://arjun.ninja/">arjun</a></p>
+		</div>
+	</body>
+	<script>
+		let usernameField = document.querySelector('#username')
+		let availabilityIndicator = document.querySelector('.indicator-item')
+
+		usernameField.addEventListener('')
+	</script>
+</html>
