@@ -1,6 +1,7 @@
 from django.views import View
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse, SimpleTemplateResponse
+from django.http.response import HttpResponseNotFound, HttpResponseBadRequest
 from django.views import View
 
 from .forms import SignUpForm
