@@ -48,22 +48,29 @@
 					<p class="mb-5">Sign in to see your dashboard</p>
 				</div>
 
-				<div class="p-10 card bg-base-200">
-					<div class="card-title">Sign in</div>
-					<form class="form-control" method="POST">
-						{% csrf_token %}
-						{{ form.username_or_email }}
-						{{ form.password }}
-						<input
-							type="submit"
-							value="sign in"
-							class="btn btn-wide btn-primary"
-						/>
-					</form>
-					<p>
-						Don't have an account?
-						<a href="{% url 'signup' %}" class="link">sign up</a>
-					</p>
+				<div>
+					{% if messages %}
+					<ul class="messages fade-out mb-1 absolute">
+						{% for message in messages %}
+						<li class="alert alert-{{message.tags}}">{{ message }}</li>
+						{% endfor %}
+					</ul>
+					{% endif %}
+					<div class="p-10 card bg-base-200">
+						<div class="card-title">Sign in</div>
+						<form class="form-control" method="POST">
+							{% csrf_token %} {{ form.username_or_email }} {{ form.password }}
+							<input
+								type="submit"
+								value="sign in"
+								class="btn btn-wide btn-primary"
+							/>
+						</form>
+						<p>
+							Don't have an account?
+							<a href="{% url 'signup' %}" class="link">sign up</a>
+						</p>
+					</div>
 				</div>
 			</div>
 			<p>made with 💜 by <a href="https://arjun.ninja/">arjun</a></p>

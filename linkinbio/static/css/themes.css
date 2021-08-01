@@ -46,10 +46,12 @@ a.link-card > card-side:hover {
 	0% {
 		opacity: 1;
 	}
-	50% {
+	80% {
 		opacity: 1;
+		transform: translateX(0);
 	}
 	100% {
+		transform: translateX(40px);
 		opacity: 0;
 		display: none !important;
 	}
@@ -59,10 +61,12 @@ a.link-card > card-side:hover {
 	0% {
 		opacity: 1;
 	}
-	50% {
+	80% {
 		opacity: 1;
+		transform: translateX(0);
 	}
 	100% {
+		transform: translateX(40px);
 		opacity: 0;
 		display: none !important;
 	}
@@ -71,8 +75,8 @@ a.link-card > card-side:hover {
 .fade-out {
 	-webkit-animation-name: fade-out !important;
 	animation-name: fade-out !important;
-	-webkit-animation-duration: 5s;
-	animation-duration: 5s;
+	-webkit-animation-duration: 4s;
+	animation-duration: 4s;
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }

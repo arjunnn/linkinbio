@@ -32,98 +32,105 @@
 	</head>
 
 	<body>
-		<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
-			<!-- <div class="flex-none hidden lg:flex">
-				<button class="btn btn-square btn-ghost">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						class="inline-block w-6 h-6 stroke-current"
+		<div class="overflow-hidden">
+			<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+				<div class="flex-1 hidden px-2 mx-2 lg:flex navbar-start">
+					<span class="text-lg font-bold"
+						><a href="{% url 'home' %}">Bio2Link</a></span
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M4 6h16M4 12h16M4 18h16"
-						></path>
-					</svg>
-				</button>
-			</div> -->
-			<div class="flex-1 hidden px-2 mx-2 lg:flex">
-				<span class="text-lg font-bold"> Bio2Link </span>
-			</div>
-			<!-- <div class="flex-none">
-				<button class="btn btn-square btn-ghost">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						class="inline-block w-6 h-6 stroke-current"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-						></path>
-					</svg>
-				</button>
-			</div> -->
-			<div class="flex-none cursor-pointer account-button">
-				<div class="avatar">
-					<div class="rounded-full w-10 h-10 m-1">
-						<img src="https://i.pravatar.cc/500?img=32" />
+				</div>
+				<div class="flex-auto hidden px-2 mx-2 navbar-center lg:flex">
+					<div class="flex items-stretch">
+						<textarea style="display: none" class="profile-link">
+							https://b2l.ink/{{user.username}}</textarea
+						>
+						<a href="https://b2l.ink/{{user.username}}" target="_blank"
+							><b>/{{ user.username }}</b>
+						</a>
+						<span class="btn btn-xs copy-profile-link"
+							><small>COPY</small></span
+						>
+					</div>
+				</div>
+				<div class="flex-none cursor-pointer account-button px-2 mx-2">
+					<div class="avatar">
+						<div class="rounded-full w-10 h-10 m-1">
+							<img src="https://i.pravatar.cc/500?img=32" />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<ul
-			class="
-				py-3
-				shadow-lg
-				bg-base-100
-				rounded-box
-				bg-base-200
-				text-bg-primary-content
-				hidden
-				account-menu
-				float-right
-			"
-		>
-			<li class="menu-title">
-				<span>Account</span>
-			</li>
-			<li>
-				<a href="mailto:arjunmunji@gmail.com">Need help?</a>
-			</li>
-			<li>
-				<a href="#"
-					>Changelog
-					<div class="badge ml-2 success">3</div></a
-				>
-			</li>
-			<li>
-				<a href="https://www.buymeacoffee.com/arjunnn">Buy me a coffee ☕</a>
-				<a href="{% url 'logout' %}">Logout</a>
-			</li>
-		</ul>
-		<div class="items-center float-right">
-			{% if messages %}
-			<ul class="messages">
-				{% for message in messages %}
-				<li class="alert alert-{{message.tags}} fade-out">{{ message }}</li>
-				{% endfor %}
+
+			<ul
+				class="
+					py-3
+					shadow-lg
+					bg-base-100
+					rounded-box
+					bg-base-200
+					text-bg-primary-content
+					hidden
+					account-menu
+					float-right
+				"
+			>
+				<li class="menu-title">
+					<span>Account</span>
+				</li>
+				<li>
+					<a href="mailto:arjunmunji@gmail.com">Need help?</a>
+				</li>
+				<li>
+					<a href="#"
+						>Changelog
+						<div class="badge ml-2 success">3</div></a
+					>
+				</li>
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+				<li>
+					<a href="#my-modal">about ℹ</a>
+					<div id="my-modal" class="modal">
+						<div class="modal-box">
+							<p>
+								Bio2Link (<a href="https://b2l.ink" class="link">b2l.ink</a>) is
+								a free app to show your presence all over the web with just one
+								link. If you have any feedback, please let me know at
+								<a href="mailto:arjunmunji+bio2link@gmail.com" class="link"
+									>arjunmunji@gmail.com</a
+								>.
+							</p>
+							<p>
+								I hope you enjoy using this app as much as I had fun building
+								it. Please consider donating if you can. Thank you 🙏
+							</p>
+							<div class="modal-action">
+								<a
+									href="https://www.buymeacoffee.com/arjunnn"
+									class="btn btn-primary"
+									target="_blank"
+									>Buy me a coffee ☕</a
+								>
+								<a href="#" class="btn">Close</a>
+							</div>
+						</div>
+					</div>
+				</li>
 			</ul>
-			{% endif %}
+			<div class="items-center float-right">
+				{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+					<li class="alert alert-{{message.tags}} fade-out">{{ message }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
 		</div>
 		<script>
 			let accountButton = document.querySelector('.account-button')
 			let accountMenu = document.querySelector('.account-menu')
+			let copyProfileLinkButton = document.querySelector('.copy-profile-link')
 
-			// accountButton.addEventListener('focus', event => {
-
-			// })
 			'click focus'.split(' ').forEach(function (type) {
 				accountButton.addEventListener(
 					type,
@@ -132,6 +139,12 @@
 					},
 					false
 				)
+			})
+			copyProfileLinkButton.addEventListener('click', async (event) => {
+				if (navigator.clipboard) {
+					const profileLink = 'https://b2l.ink/{{request.user.username}}'
+					await navigator.clipboard.writeText(profileLink)
+				}
 			})
 		</script>
 	</body>

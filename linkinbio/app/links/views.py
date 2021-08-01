@@ -78,6 +78,7 @@ class LoginView(View):
             messages.info(request, f"Welcome {form.user.username} 👋")
             return redirect("dashboard")
         else:
+            messages.error(request, f"😟 Login failed. Please try again")
             return redirect(reverse("login"))
 
 
@@ -104,7 +105,6 @@ class DashboardView(View):
             return redirect(reverse("login"))
         response = TemplateResponse(request, "dashboard.html")
         return response
-        return HttpResponse("hi logged in user")
 
 
 class LogoutView(View):
