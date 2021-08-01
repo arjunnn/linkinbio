@@ -19,7 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from .api.urls import urlpatterns as api_url_patterns
-from .links.views import ProfileView, SignUpView, LoginView, RedirectView
+from .links.views import (
+    ProfileView,
+    SignUpView,
+    LoginView,
+    RedirectView,
+    DashboardView,
+    LogoutView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -29,8 +36,11 @@ urlpatterns = [
     ),
     path("<username>/", ProfileView.as_view(), name="profile"),
     path("signup", SignUpView.as_view(), name="signup"),
+    path("signup/check/<username>", SignUpView.as_view(), name="check_availability"),
     path("login", LoginView.as_view(), name="login"),
+    path("logout", LogoutView.as_view(), name="logout"),
     path("", SignUpView.as_view(), name="home"),
+    path("dashboard", DashboardView.as_view(), name="dashboard"),
     path("r/<uuid>", RedirectView.as_view(), name="redirect"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:

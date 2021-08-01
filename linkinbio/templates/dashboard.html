@@ -1,0 +1,138 @@
+{% load static %}
+<html data-theme="cupcake">
+	<head>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="{% static 'images/apple-touch-icon.png' %}"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="{% static 'images/favicon-32x32.png' %}"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="{% static 'images/favicon-16x16.png' %}"
+		/>
+		<link rel="manifest" href="{% static 'images/site.webmanifest' %}" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/1.10.0/full.css"
+		/>
+		<link rel="stylesheet" href="{% static 'css/themes.css' %}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+
+	<body>
+		<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+			<!-- <div class="flex-none hidden lg:flex">
+				<button class="btn btn-square btn-ghost">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						class="inline-block w-6 h-6 stroke-current"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M4 6h16M4 12h16M4 18h16"
+						></path>
+					</svg>
+				</button>
+			</div> -->
+			<div class="flex-1 hidden px-2 mx-2 lg:flex">
+				<span class="text-lg font-bold"> Bio2Link </span>
+			</div>
+			<!-- <div class="flex-none">
+				<button class="btn btn-square btn-ghost">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						class="inline-block w-6 h-6 stroke-current"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+						></path>
+					</svg>
+				</button>
+			</div> -->
+			<div class="flex-none cursor-pointer account-button">
+				<div class="avatar">
+					<div class="rounded-full w-10 h-10 m-1">
+						<img src="https://i.pravatar.cc/500?img=32" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul
+			class="
+				py-3
+				shadow-lg
+				bg-base-100
+				rounded-box
+				bg-base-200
+				text-bg-primary-content
+				hidden
+				account-menu
+				float-right
+			"
+		>
+			<li class="menu-title">
+				<span>Account</span>
+			</li>
+			<li>
+				<a href="mailto:arjunmunji@gmail.com">Need help?</a>
+			</li>
+			<li>
+				<a href="#"
+					>Changelog
+					<div class="badge ml-2 success">3</div></a
+				>
+			</li>
+			<li>
+				<a href="https://www.buymeacoffee.com/arjunnn">Buy me a coffee ☕</a>
+				<a href="{% url 'logout' %}">Logout</a>
+			</li>
+		</ul>
+		<div class="items-center float-right">
+			{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+				<li class="alert alert-{{message.tags}} fade-out">{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
+		<script>
+			let accountButton = document.querySelector('.account-button')
+			let accountMenu = document.querySelector('.account-menu')
+
+			// accountButton.addEventListener('focus', event => {
+
+			// })
+			'click focus'.split(' ').forEach(function (type) {
+				accountButton.addEventListener(
+					type,
+					(event) => {
+						accountMenu.classList.toggle('menu')
+					},
+					false
+				)
+			})
+		</script>
+	</body>
+</html>

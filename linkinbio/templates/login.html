@@ -34,7 +34,10 @@
 	<body>
 		<div class="flex flex-col h-screen justify-around items-center">
 			<div class="flex flex-col justify-center items-center">
-				<h1 class="mb-5 text-5xl font-bold text-primary">Bio2Link</h1>
+				<a href="/">
+					<h1 class="mb-5 text-5xl font-bold text-primary">Bio2Link</h1>
+				</a>
+
 				<h3 class="mb-5 text-2xl font-bold text-secondary">
 					The one link for all your links
 				</h3>
@@ -47,19 +50,10 @@
 
 				<div class="p-10 card bg-base-200">
 					<div class="card-title">Sign in</div>
-					<form class="form-control">
-						<input
-							type="email"
-							placeholder="email or username"
-							class="input"
-							title="email"
-						/>
-						<input
-							type="password"
-							placeholder="password"
-							class="input"
-							title="password"
-						/>
+					<form class="form-control" method="POST">
+						{% csrf_token %}
+						{{ form.username_or_email }}
+						{{ form.password }}
 						<input
 							type="submit"
 							value="sign in"
@@ -75,10 +69,4 @@
 			<p>made with 💜 by <a href="https://arjun.ninja/">arjun</a></p>
 		</div>
 	</body>
-	<script>
-		let usernameField = document.querySelector('#username')
-		let availabilityIndicator = document.querySelector('.indicator-item')
-
-		usernameField.addEventListener('')
-	</script>
 </html>

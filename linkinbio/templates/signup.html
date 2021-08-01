@@ -1,4 +1,5 @@
 {% load static %}
+<!DOCTYPE html>
 <html data-theme="cupcake">
 	<head>
 		<link
@@ -34,7 +35,9 @@
 	<body>
 		<div class="flex flex-col h-screen justify-around items-center">
 			<div class="flex flex-col justify-center items-center">
-				<h1 class="mb-5 text-5xl font-bold text-primary">Bio2Link</h1>
+				<a href="/">
+					<h1 class="mb-5 text-5xl font-bold text-primary">Bio2Link</h1>
+				</a>
 				<h3 class="mb-5 text-2xl font-bold text-secondary">
 					The one link for all your links
 				</h3>
@@ -46,31 +49,14 @@
 				</div>
 				<div class="p-10 card bg-base-200">
 					<div class="card-title">Sign up</div>
-					<form class="form-control">
-						<input
-							type="email"
-							placeholder="email"
-							class="input"
-							title="email"
-						/>
+
+					<form class="form-control" method="POST">
+						{% csrf_token %} {{ form.email }}
 						<div class="my-6 indicator">
 							<div class="indicator-item"></div>
-							<input
-								type="text"
-								placeholder="username"
-								value="{{ request.GET.username }}"
-								class="input"
-								id="username"
-								pattern="[\w]+"
-								title="Alphanumeric only"
-							/>
+							{{ form.username }}
 						</div>
-						<input
-							type="password"
-							placeholder="password"
-							class="input"
-							title="password"
-						/>
+						{{ form.password }}
 						<input
 							type="submit"
 							value="sign up"
@@ -85,11 +71,30 @@
 			</div>
 			<p>made with 💜 by <a href="https://arjun.ninja/">arjun</a></p>
 		</div>
-	</body>
-	<script>
-		let usernameField = document.querySelector('#username')
-		let availabilityIndicator = document.querySelector('.indicator-item')
+		<script>
+			const usernameField = document.querySelector('#id_username')
+			const availabilityIndicator = document.querySelector('.indicator-item')
+			const availabilityUrl = '/signup/check'
 
-		usernameField.addEventListener('')
-	</script>
+			const queryAvailability = (value) => {
+				if (value != '' && value.length > 3) {
+					fetch(`${availabilityUrl}/${value}`).then((response) => {
+						availabilityIndicator.classList.add('badge')
+						console.log(response)
+						if (response.status == 204) {
+							availabilityIndicator.innerText = '✔'
+						} else {
+							availabilityIndicator.innerText = '❌'
+						}
+					})
+				}
+			}
+			usernameField.addEventListener('keyup', (event) => {
+				availabilityIndicator.innerText = ''
+				availabilityIndicator.classList.remove('badge')
+				queryAvailability(event.target.value)
+			})
+			queryAvailability(usernameField.value)
+		</script>
+	</body>
 </html>

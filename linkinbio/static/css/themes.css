@@ -36,6 +36,47 @@ a.link-card > card-side:hover {
 	gap: 4rem;
 }
 
+.account-menu,
+.messages {
+	position: -webkit-sticky;
+	position: sticky;
+}
+
+@-webkit-keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		display: none !important;
+	}
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		display: none !important;
+	}
+}
+
+.fade-out {
+	-webkit-animation-name: fade-out !important;
+	animation-name: fade-out !important;
+	-webkit-animation-duration: 5s;
+	animation-duration: 5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
 [data-theme='arjun-custom'] {
 	--rounded-box: 3rem;
 	--rounded-btn: 1.9rem;
