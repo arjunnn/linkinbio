@@ -35,6 +35,7 @@ urlpatterns = [
         include(api_url_patterns),
     ),
     path("<username>/", ProfileView.as_view(), name="profile"),
+    path("<username>/edit", DashboardView.as_view(), name="edit-profile"),
     path("signup", SignUpView.as_view(), name="signup"),
     path("signup/check/<username>", SignUpView.as_view(), name="check_availability"),
     path("login", LoginView.as_view(), name="login"),

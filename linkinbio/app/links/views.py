@@ -32,7 +32,7 @@ class ProfileView(View):
 class SignUpView(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect(reverse("dashboard"))
+            return redirect("edit-profile", username=request.user.username)
         username = kwargs.get("username")
         if username:
             if get_user_model().objects.filter(username=username).exists():
@@ -55,7 +55,7 @@ class SignUpView(View):
             )
             login(request, user=created_user)
             messages.success(request, "Welcome! we've logged you in.")
-            return redirect(reverse("dashboard"))
+            return redirect("edit-profile", username=created_user.username)
         else:
             messages.error(request, "error", "Sign up failed. Please try again.")
             return redirect(reverse("signup"))
@@ -64,7 +64,7 @@ class SignUpView(View):
 class LoginView(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect(reverse("dashboard"))
+            return redirect("edit-profile", request.user.username)
         response = TemplateResponse(
             request, "login.html", {"form": SignInForm(request.GET)}
         )
@@ -76,7 +76,7 @@ class LoginView(View):
         if form.is_valid():
             login(request, form.user)
             messages.info(request, f"Welcome {form.user.username} 👋")
-            return redirect("dashboard")
+            return redirect("edit-profile", username=form.user.username)
         else:
             messages.error(request, f"😟 Login failed. Please try again")
             return redirect(reverse("login"))
@@ -103,7 +103,8 @@ class DashboardView(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect(reverse("login"))
-        response = TemplateResponse(request, "dashboard.html")
+        messages.info(request, f"Welcome {request.user.username} 👋")
+        response = TemplateResponse(request, "edit_profile.html")
         return response
 
 

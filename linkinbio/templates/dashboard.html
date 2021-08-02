@@ -1,6 +1,16 @@
 {% load static %}
 <html data-theme="cupcake">
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/1.10.0/full.css"
+		/>
+		<link rel="stylesheet" href="{% static 'css/themes.css' %}" />
 		<link
 			rel="apple-touch-icon"
 			sizes="180x180"
@@ -19,20 +29,10 @@
 			href="{% static 'images/favicon-16x16.png' %}"
 		/>
 		<link rel="manifest" href="{% static 'images/site.webmanifest' %}" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/1.10.0/full.css"
-		/>
-		<link rel="stylesheet" href="{% static 'css/themes.css' %}" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 
 	<body>
-		<div class="overflow-hidden">
+		<div class="">
 			<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
 				<div class="flex-1 hidden px-2 mx-2 lg:flex navbar-start">
 					<span class="text-lg font-bold"
@@ -44,7 +44,7 @@
 						<textarea style="display: none" class="profile-link">
 							https://b2l.ink/{{user.username}}</textarea
 						>
-						<a href="https://b2l.ink/{{user.username}}" target="_blank"
+						<a href="/{{user.username}}" target="_blank"
 							><b>/{{ user.username }}</b>
 						</a>
 						<span class="btn btn-xs copy-profile-link"
@@ -116,16 +116,17 @@
 					</div>
 				</li>
 			</ul>
-			<div class="items-center float-right">
-				{% if messages %}
-				<ul class="messages">
-					{% for message in messages %}
-					<li class="alert alert-{{message.tags}} fade-out">{{ message }}</li>
-					{% endfor %}
-				</ul>
-				{% endif %}
-			</div>
 		</div>
+		<div class="float-right sticky overflow-hidden pr-4">
+			{% if messages %}
+			<ul class="messages fade-out">
+				{% for message in messages %}
+				<li class="alert alert-{{message.tags}}">{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
+		{% block content %} {% endblock %}
 		<script>
 			let accountButton = document.querySelector('.account-button')
 			let accountMenu = document.querySelector('.account-menu')
