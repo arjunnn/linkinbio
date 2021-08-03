@@ -1,5 +1,5 @@
 {% load static %}
-<html data-theme={{ profile.theme.name|default:"light" }}>
+<html data-theme={{ profile.get_theme|default:"light" }}>
 
 <head>
   <meta>
@@ -39,13 +39,14 @@
   </style>
 </head>
 {{form}}
-<body class="h-screen">
+<body class="h-screen {% if iframe %} zoom-out {% endif %}">
   <div class="container mx-auto px-4 max-w-xl">
     <div class="grid grid-cols-1 gap-2 place-items-center h-48">
       <div class="my-6 avatar indicator">
         <div class="indicator-item badge">NEW USER!</div>
         <div class="mb-8 rounded-full w-32 h-32 ring ring-primary ring-offset-base-100 ring-offset-2">
-          <img src="https://images.unsplash.com/photo-1534126416832-a88fdf2911c2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="">
+          <!-- <img src="https://images.unsplash.com/photo-1534126416832-a88fdf2911c2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt=""> -->
+          <img src="/media/{{profile.image}}" alt="" srcset="">
         </div>
       </div>
       <p class="text-center name text-2xl">{{ profile.user.get_full_name|default:profile.user.username }}</p>
@@ -55,14 +56,16 @@
       <a href="{{ link.link }}" class="link-card">
         <div class="flex flex-col w-full">
           <div class="card card-side bordered">
-            <figure>
-              <!-- <img height="16" width="32" src="https://via.placeholder.com/110" /> -->
+            <!-- <figure>
+              <img height="16" width="32" src="https://via.placeholder.com/110" />
               <img src="https://unpkg.com/simple-icons@5.8.0/icons/snapchat.svg" />
-            </figure>
-            <div class="card-body">
-              <div class="card-title">
-                <span class="normal-case">{{ link.name }}</span>
-              </div>
+            </figure> -->
+            <div class="card-body truncate">
+              <!-- <div class="card-title">
+                
+              </div> -->
+              <span class="normal-case">{{ link.name }}</span>
+              <small class="truncate">{{link.link}}</small>
             </div>
           </div>
         </div>

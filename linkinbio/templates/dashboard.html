@@ -1,5 +1,5 @@
 {% load static %}
-<html data-theme="cupcake">
+<html data-theme="{{request.user.profile.get_theme|default:"cupcake"}}">
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link
@@ -33,7 +33,7 @@
 
 	<body>
 		<div class="">
-			<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+			<div class="navbar m-4 shadow-lg bg-neutral text-neutral-content rounded-box">
 				<div class="flex-1 hidden px-2 mx-2 lg:flex navbar-start">
 					<span class="text-lg font-bold"
 						><a href="{% url 'home' %}">Bio2Link</a></span
@@ -54,8 +54,9 @@
 				</div>
 				<div class="flex-none cursor-pointer account-button px-2 mx-2">
 					<div class="avatar">
-						<div class="rounded-full w-10 h-10 m-1">
-							<img src="https://i.pravatar.cc/500?img=32" />
+						<div class="rounded-full w-10 h-10 m-1 ring ring-secondary ring-offset-base-100 ring-offset-2">
+							<!-- <img src="https://i.pravatar.cc/500?img=32" /> -->
+							<img src="/media/{{user.profile.image}}" alt="">
 						</div>
 					</div>
 				</div>
@@ -71,6 +72,8 @@
 					text-bg-primary-content
 					hidden
 					account-menu
+					mx-4
+					absolute
 					float-right
 				"
 			>
@@ -88,49 +91,57 @@
 				</li>
 				<li><a href="{% url 'logout' %}">Logout</a></li>
 				<li>
-					<a href="#my-modal">about ℹ</a>
-					<div id="my-modal" class="modal">
-						<div class="modal-box">
-							<p>
-								Bio2Link (<a href="https://b2l.ink" class="link">b2l.ink</a>) is
-								a free app to show your presence all over the web with just one
-								link. If you have any feedback, please let me know at
-								<a href="mailto:arjunmunji+bio2link@gmail.com" class="link"
-									>arjunmunji@gmail.com</a
-								>.
-							</p>
-							<p>
-								I hope you enjoy using this app as much as I had fun building
-								it. Please consider donating if you can. Thank you 🙏
-							</p>
-							<div class="modal-action">
-								<a
-									href="https://www.buymeacoffee.com/arjunnn"
-									class="btn btn-primary"
-									target="_blank"
-									>Buy me a coffee ☕</a
-								>
-								<a href="#" class="btn">Close</a>
-							</div>
-						</div>
-					</div>
+					<a href="#about">about ℹ</a>
+					
 				</li>
 			</ul>
+			<div class="float-right overflow-hidden absolute messages-container fade-out">
+				{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+					<li class="alert alert-{{message.tags}} p-2 m-2">{{ message }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+			{% block content %} {% endblock %}
 		</div>
-		<div class="float-right sticky overflow-hidden pr-4">
-			{% if messages %}
-			<ul class="messages fade-out">
-				{% for message in messages %}
-				<li class="alert alert-{{message.tags}}">{{ message }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
+		
+		<div id="about" class="modal">
+			<div class="modal-box">
+				<p>
+					Bio2Link (<a href="https://b2l.ink" class="link">b2l.ink</a>) is
+					a free website to show your presence all over the web with just one
+					link. If you have any feedback, please let me know at
+					<a href="mailto:arjunmunji+bio2link@gmail.com" class="link"
+						>arjunmunji@gmail.com</a
+					>.
+				</p>
+				<p>
+					I hope you enjoy using this website as much as I had fun building
+					it. Please consider donating if you can. Thank you 🙏
+				</p>
+				<div class="modal-action">
+					<a
+						href="https://www.buymeacoffee.com/arjunnn"
+						class="btn btn-primary"
+						target="_blank"
+						>Buy me a coffee ☕</a
+					>
+					<a href="#" class="btn">Close</a>
+				</div>
+			</div>
 		</div>
-		{% block content %} {% endblock %}
 		<script>
 			let accountButton = document.querySelector('.account-button')
 			let accountMenu = document.querySelector('.account-menu')
 			let copyProfileLinkButton = document.querySelector('.copy-profile-link')
+			let fileUploadButton = document.querySelector('input#file-upload-button')
+
+			if(fileUploadButton) {
+				console.log(fileUploadButton)
+				fileUploadButton.classList.add('btn')
+			}
 
 			'click focus'.split(' ').forEach(function (type) {
 				accountButton.addEventListener(
@@ -147,6 +158,10 @@
 					await navigator.clipboard.writeText(profileLink)
 				}
 			})
+			document.querySelectorAll('input[type="checkbox"]').forEach(el =>{
+				el.classList.add('checkbox')
+			})
 		</script>
+		
 	</body>
 </html>

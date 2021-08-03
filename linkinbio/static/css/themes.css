@@ -36,11 +36,6 @@ a.link-card > card-side:hover {
 	gap: 4rem;
 }
 
-.account-menu,
-.messages {
-	position: -webkit-sticky;
-	position: sticky;
-}
 
 @-webkit-keyframes fade-out {
 	0% {
@@ -59,6 +54,7 @@ a.link-card > card-side:hover {
 		opacity: 0;
 		height: 0;
 		width: 0;
+		margin: 0;
 	}
 }
 
@@ -89,6 +85,45 @@ a.link-card > card-side:hover {
 	animation-duration: 4s;
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
+}
+
+iframe.phone-iframe {
+	width: 100vw;
+	aspect-ratio: 3/2;
+}
+
+.zoom-out {
+	transform: scale(0.85);
+	overflow-y: scroll;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+.zoom-out::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+
+.mockup-window:before {
+	box-shadow: 1.4em 0 red, 2.8em 0 orange, 4.2em 0 green;
+}
+
+.live-view {
+	margin-top: -35px;
+	left: 0;
+	right: 0;
+}
+
+.messages-container,
+.account-menu {
+	right: 0;
+	z-index: 3;
+}
+.alert-info {
+	background-color: hsla(var(--in) / var(1));
+}
+
+.form-control .label span {
+	display: block;
 }
 
 [data-theme='arjun-custom'] {

@@ -1,9 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
-from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+
+from ..links.models import Profile, ProfileTheme, Link
 
 
 class SignUpForm(forms.Form):
@@ -55,3 +56,52 @@ class SignInForm(forms.Form):
         self.user = authenticate(request=None, username=username, password=password)
         if not self.user:
             raise forms.ValidationError(f"Login failed. Please try again")
+
+
+class EditProfileForm(forms.ModelForm):
+    theme = forms.ModelChoiceField(
+        queryset=ProfileTheme.objects.all().order_by("name"),
+        widget=forms.Select(attrs={"class": "select select-bordered w-full"}),
+    )
+    bio = forms.CharField(
+        widget=forms.Textarea(
+            attrs={"class": "textarea h-24 textarea-bordered textarea-primary w-full"}
+        ),
+        required=False,
+    )
+    image = forms.ImageField(
+        widget=forms.ClearableFileInput(attrs={"class": "input w-full"}), required=False
+    )
+    name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"class": "input input-bordered input-primary w-full"}
+        ),
+        required=False,
+    )
+
+    class Meta:
+        model = Profile
+        fields = ["bio", "image", "theme"]
+
+    def __init__(self, *args, **kwargs):
+        self.instance = kwargs.get("instance")
+        if self.instance:
+            self.base_fields["name"].initial = self.instance.user.first_name
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        super(EditProfileForm, self).save(*args, **kwargs)
+        name = self.cleaned_data.get("name")
+        if name:
+            self.instance.user.first_name = name
+            self.instance.user.save()
+
+
+class LinkForm(forms.ModelForm):
+    link = forms.URLField(widget=forms.URLInput(attrs={"class": "input truncate"}))
+    name = forms.CharField(widget=forms.TextInput(attrs={"class": "input"}))
+    id = forms.IntegerField(widget=forms.HiddenInput)
+
+    class Meta:
+        model = Link
+        fields = ["link", "name", "id"]

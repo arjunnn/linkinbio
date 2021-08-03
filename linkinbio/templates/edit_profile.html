@@ -1,4 +1,95 @@
-{% extends "dashboard.html" %}
-{% block content %}
-    HIIIIIII
+{% extends "dashboard.html" %} {% block content %}
+<div class="flex flex-wrap">
+	<div class="card bordered m-4 flex-0 flex-grow-0">
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="card-body">
+				<h2 class="card-title">Edit Profile</h2>
+				<div class="form-control">
+					<div class="form-field">
+						<label class="label">
+							<span class="label-text">Name</span>
+						</label>
+						{{edit_profile_form.name}}
+					</div>
+					<div class="form-control">
+						<label class="label">
+							<span class="label-text">Bio 📝</span>
+						</label>
+						{{edit_profile_form.bio}}
+					</div>
+					<div class="form-field">
+						<label class="label" for="id_image">
+							<span class="label-text">Photo 🖼</span>
+						</label>
+						{{edit_profile_form.image}}
+					</div>
+					<div class="form-field">
+						<label class="label">
+							<span class="label-text">Theme 🎨</span>
+						</label>
+						{{edit_profile_form.theme}}
+					</div>
+				</div>
+
+				<div class="card-actions">
+					<input type="submit" value="save" class="btn btn-primary" />
+					<!-- <button class="btn btn-primary">Get Started</button>
+                    <button class="btn btn-ghost">More info</button> -->
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="card bordered m-4 flex-auto">
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %} {{ link_formset.management_form }}
+			<div class="card-body">
+				<h2 class="card-title">Your Links</h2>
+				<div class="form-control">
+					<table class="table w-full">
+						<thead>
+							<tr>
+								<!-- <th>Name</th> -->
+								<th>Link</th>
+								<th>Delete</th>
+								<!-- <th></th> -->
+							</tr>
+						</thead>
+						<tbody>
+							{% for form in link_formset %} {{form.id}}
+							<tr>
+								<td class="flex flex-wrap w-full">
+									{{ form.name }} {{ form.link }}
+								</td>
+
+								<td>{{ form.DELETE }}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div class="card-actions">
+					<input type="submit" value="save" class="btn btn-primary" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="flex previews m-4 align-center">
+	<div class="border mockup-window border-base-300 w-auto mx-auto">
+		<span class="absolute live-view ml-auto mr-auto w-24"
+			><b>live view 👀</b></span
+		>
+		<div class="flex justify-center px-4 border-t border-base-300">
+			<iframe
+				class="phone-iframe"
+				title="Desktop Preview"
+				src="http://localhost:8000/{{request.user.username}}?iframe=1"
+			>
+			</iframe>
+		</div>
+	</div>
+</div>
+
 {% endblock %}

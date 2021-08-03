@@ -6,24 +6,29 @@ from django.http.response import (
     HttpResponseBadRequest,
     HttpResponse,
 )
+from django import forms
+from django.forms import formset_factory, modelformset_factory
 from django.shortcuts import reverse
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login, logout
 
-from .forms import SignUpForm, SignInForm
+from .forms import SignUpForm, SignInForm, EditProfileForm, LinkForm
 from ..links.models import Profile, Link
-from django.contrib.auth.models import User
 
 
 class ProfileView(View):
     def get(self, request, *args, **kwargs):
         username = kwargs.get("username")
+        iframe = True if request.GET.get("iframe") else False
         try:
             profile = Profile.objects.get(user__username=username)
-            profile.hits += 1
-            profile.save()
-            response = SimpleTemplateResponse("profile.html", {"profile": profile})
+            if not iframe:
+                profile.hits += 1
+                profile.save()
+            response = SimpleTemplateResponse(
+                "profile.html", {"profile": profile, "iframe": iframe}
+            )
             return response
         except Exception as e:
             return HttpResponseNotFound()
@@ -100,12 +105,71 @@ class RedirectView(View):
 
 
 class DashboardView(View):
+    def __init__(self, **kwargs):
+        self.profile: Profile = None
+        self.LinkFormSet = None
+
+    def setup(self, request, *args, **kwargs):
+        super(DashboardView, self).setup(self, request, *args, **kwargs)
+        self.profile = request.user.profile
+        self.LinkFormSet = modelformset_factory(
+            Link,
+            fields=("id", "name", "link"),
+            can_delete=True,
+            extra=2,
+            widgets={
+                "id": forms.HiddenInput,
+                "name": forms.TextInput(
+                    attrs={
+                        "class": "input input-bordered truncate mb-1 mr-1 flex-auto",
+                        "placeholder": "description",
+                    }
+                ),
+                "link": forms.TextInput(
+                    attrs={
+                        "class": "input input-bordered truncate ml-1",
+                        "placeholder": "link",
+                    }
+                ),
+            },
+        )
+
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect(reverse("login"))
-        messages.info(request, f"Welcome {request.user.username} 👋")
-        response = TemplateResponse(request, "edit_profile.html")
+        link_formset = self.LinkFormSet()
+        context = {
+            "edit_profile_form": EditProfileForm(instance=self.profile),
+            "link_formset": link_formset,
+        }
+        response = TemplateResponse(request, "edit_profile.html", context=context)
         return response
+
+    def post(self, request, *args, **kwargs):
+        link_formset = self.LinkFormSet(request.POST, request.FILES)
+        edit_profile_form = EditProfileForm(
+            request.POST, instance=self.profile, files=request.FILES
+        )
+        if edit_profile_form.is_valid():
+            edit_profile_form.save()
+            messages.success(request, "Profile updated successfully ✨")
+        else:
+            print(edit_profile_form.errors)
+        if link_formset.is_valid():
+            link_formset.save()
+            for form in link_formset:
+                instance = form.save(commit=False)
+                if not (instance.name and instance.link):
+                    continue
+                if form.cleaned_data.get("DELETE"):
+                    instance.delete()
+                else:
+                    instance.profile = request.user.profile
+                    instance.save()
+            messages.success(request, "Profile updated successfully ✨")
+        else:
+            print(link_formset.errors)
+        return redirect("edit-profile", username=request.user.username)
 
 
 class LogoutView(View):
