@@ -36,7 +36,6 @@ a.link-card > card-side:hover {
 	gap: 4rem;
 }
 
-
 @-webkit-keyframes fade-out {
 	0% {
 		opacity: 1;
@@ -116,7 +115,7 @@ iframe.phone-iframe {
 .messages-container,
 .account-menu {
 	right: 0;
-	z-index: 3;
+	z-index: 11;
 }
 .alert-info {
 	background-color: hsla(var(--in) / var(1));

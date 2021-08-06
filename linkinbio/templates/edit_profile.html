@@ -1,6 +1,13 @@
 {% extends "dashboard.html" %} {% block content %}
-<div class="flex flex-wrap">
-	<div class="card bordered m-4 flex-0 flex-grow-0">
+<div
+	class="
+		flex flex-wrap
+		2xl:max-w-screen-2xl 2xl:justify-items-center
+		justify-content-center
+		m-auto
+	"
+>
+	<div class="card bordered m-4 flex-auto lg:flex-initial md:flex-grow-1">
 		<form method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="card-body">
@@ -40,7 +47,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="card bordered m-4 flex-auto">
+	<div class="card bordered m-4 flex-auto flex-grow-1">
 		<form method="POST" enctype="multipart/form-data">
 			{% csrf_token %} {{ link_formset.management_form }}
 			<div class="card-body">
@@ -77,9 +84,20 @@
 </div>
 
 <div class="flex previews m-4 align-center">
-	<div class="border mockup-window border-base-300 w-auto mx-auto">
+	<div
+		class="
+			border
+			mockup-window
+			border-base-300
+			w-auto
+			mx-auto
+			xl:max-w-screen-md
+		"
+	>
 		<span class="absolute live-view ml-auto mr-auto w-24"
-			><b>live view 👀</b></span
+			><a href="/{{request.user.username}}" target="_blank">
+				<b>live view 👀</b>
+			</a></span
 		>
 		<div class="flex justify-center px-4 border-t border-base-300">
 			<iframe

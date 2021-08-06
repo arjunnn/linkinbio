@@ -1,19 +1,19 @@
-from django.views import View
 from django.shortcuts import redirect
-from django.template.response import TemplateResponse, SimpleTemplateResponse
+from django import forms
+from django.contrib import messages
+from django.contrib.auth import get_user_model, login, logout
+from django.forms import modelformset_factory
 from django.http.response import (
     HttpResponseNotFound,
     HttpResponseBadRequest,
     HttpResponse,
 )
-from django import forms
-from django.forms import formset_factory, modelformset_factory
+from django.shortcuts import redirect
 from django.shortcuts import reverse
+from django.template.response import TemplateResponse, SimpleTemplateResponse
 from django.views import View
-from django.contrib import messages
-from django.contrib.auth import get_user_model, login, logout
 
-from .forms import SignUpForm, SignInForm, EditProfileForm, LinkForm
+from .forms import SignUpForm, SignInForm, EditProfileForm
 from ..links.models import Profile, Link
 
 
@@ -59,7 +59,8 @@ class SignUpView(View):
                 password=data.get("password"),
             )
             login(request, user=created_user)
-            messages.success(request, "Welcome! we've logged you in.")
+            profile = Profile.objects.create(user=created_user)
+            messages.success(request, "Welcome! Get started by creating your profile.")
             return redirect("edit-profile", username=created_user.username)
         else:
             messages.error(request, "error", "Sign up failed. Please try again.")
@@ -111,7 +112,8 @@ class DashboardView(View):
 
     def setup(self, request, *args, **kwargs):
         super(DashboardView, self).setup(self, request, *args, **kwargs)
-        self.profile = request.user.profile
+        if request.user.is_authenticated:
+            self.profile = request.user.profile
         self.LinkFormSet = modelformset_factory(
             Link,
             fields=("id", "name", "link"),
@@ -152,7 +154,6 @@ class DashboardView(View):
         )
         if edit_profile_form.is_valid():
             edit_profile_form.save()
-            messages.success(request, "Profile updated successfully ✨")
         else:
             print(edit_profile_form.errors)
         if link_formset.is_valid():

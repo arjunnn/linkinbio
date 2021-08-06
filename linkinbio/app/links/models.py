@@ -49,6 +49,9 @@ class Profile(models.Model):
 
     @property
     def get_theme(self):
+        if not self.theme:
+            self.theme = ProfileTheme.objects.get(name="cupcake")
+            self.save()
         return self.theme.name.split(" ")[1]
 
 

@@ -62,6 +62,7 @@ class EditProfileForm(forms.ModelForm):
     theme = forms.ModelChoiceField(
         queryset=ProfileTheme.objects.all().order_by("name"),
         widget=forms.Select(attrs={"class": "select select-bordered w-full"}),
+        required=False,
     )
     bio = forms.CharField(
         widget=forms.Textarea(

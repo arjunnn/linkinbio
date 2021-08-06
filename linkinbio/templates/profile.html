@@ -1,80 +1,79 @@
 {% load static %}
 <html data-theme={{ profile.get_theme|default:"light" }}>
 
-<head>
-  <meta>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/1.10.0/full.css"
-		/>
-		<link rel="stylesheet" href="{% static 'css/themes.css' %}" />
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="{% static 'images/apple-touch-icon.png' %}"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="{% static 'images/favicon-32x32.png' %}"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="{% static 'images/favicon-16x16.png' %}"
-		/>
-		<link rel="manifest" href="{% static 'images/site.webmanifest' %}" />
-  <style>
-    body {
-      /* background: url('http://thepatternlibrary.com/img/ar.png') repeat; */
-
-    }
-  </style>
-</head>
-{{form}}
-<body class="h-screen {% if iframe %} zoom-out {% endif %}">
-  <div class="container mx-auto px-4 max-w-xl">
-    <div class="grid grid-cols-1 gap-2 place-items-center h-48">
-      <div class="my-6 avatar indicator">
-        <div class="indicator-item badge">NEW USER!</div>
-        <div class="mb-8 rounded-full w-32 h-32 ring ring-primary ring-offset-base-100 ring-offset-2">
-          <!-- <img src="https://images.unsplash.com/photo-1534126416832-a88fdf2911c2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt=""> -->
-          <img src="/media/{{profile.image}}" alt="" srcset="">
-        </div>
-      </div>
-      <p class="text-center name text-2xl">{{ profile.user.get_full_name|default:profile.user.username }}</p>
-      <p class="text-left text-sm">{{ profile.bio }}</p>
-      <span class="divider"></span>
-      {% for link in profile.links.all %}
-      <a href="{{ link.link }}" class="link-card">
-        <div class="flex flex-col w-full">
-          <div class="card card-side bordered">
-            <!-- <figure>
-              <img height="16" width="32" src="https://via.placeholder.com/110" />
-              <img src="https://unpkg.com/simple-icons@5.8.0/icons/snapchat.svg" />
-            </figure> -->
-            <div class="card-body truncate">
-              <!-- <div class="card-title">
-                
-              </div> -->
-              <span class="normal-case">{{ link.name }}</span>
-              <small class="truncate">{{link.link}}</small>
-            </div>
+  <head>
+    <meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css"
+    />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/daisyui/1.10.0/full.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/themes.css' %}" />
+    <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="{% static 'images/apple-touch-icon.png' %}"
+    />
+    <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="{% static 'images/favicon-32x32.png' %}"
+    />
+    <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="{% static 'images/favicon-16x16.png' %}"
+    />
+    <link rel="manifest" href="{% static 'images/site.webmanifest' %}" />
+    <style>
+      body {
+        /* background: url('http://thepatternlibrary.com/img/ar.png') repeat; */
+        
+      }
+    </style>
+  </head>
+  <body class="h-screen {% if iframe %} zoom-out {% endif %}">
+    <div class="container mx-auto px-4 max-w-xl">
+      <div class="grid grid-cols-1 gap-2 place-items-center h-48">
+        <div class="my-6 avatar indicator">
+          <div class="indicator-item badge">NEW USER!</div>
+          <div class="mb-8 rounded-full w-32 h-32 ring ring-primary ring-offset-base-100 ring-offset-2">
+            <!-- <img src="https://images.unsplash.com/photo-1534126416832-a88fdf2911c2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt=""> -->
+            <img src="/media/{{profile.image}}" alt="" srcset="">
           </div>
         </div>
-      </a>  
-      {% endfor %}
-      <span class="divider"></span>
-      <p>create your own page at <a href="https://b2l.ink/">Bio2Link</a></p>
+        <p class="text-center name text-2xl">{{ profile.user.get_full_name|default:profile.user.username }}</p>
+        <p class="text-left text-sm">{{ profile.bio }}</p>
+        <span class="divider"></span>
+        {% for link in profile.links.all %}
+        <a href="{%  url 'redirect' link.uuid %}" target="_blank" class="link-card">
+          <div class="flex flex-col w-full">
+            <div class="card card-side bordered">
+              <!-- <figure>
+                <img height="16" width="32" src="https://via.placeholder.com/110" />
+                <img src="https://unpkg.com/simple-icons@5.8.0/icons/snapchat.svg" />
+              </figure> -->
+              <div class="card-body truncate text-center">
+                <!-- <div class="card-title">
+                  
+                </div> -->
+                <span class="normal-case font-semibold text-xl">{{ link.name }}</span>
+                <small class="truncate">{{link.link}}</small>
+              </div>
+            </div>
+          </div>
+        </a>  
+        {% endfor %}
+        <span class="divider"></span>
+        <div class="p-2 pb-8 mt-auto"><a href="https://b2l.ink/" class="link-primary" {% if iframe %} hidden {% endif %}>create your own page at Bio2Link</a></div>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 
 </html>
