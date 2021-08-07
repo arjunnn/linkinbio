@@ -78,27 +78,6 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    },
-    "default": {
-        "NAME": "linkinbio",
-        "ENGINE": "mysql.connector.django",
-        "USER": "root",
-        "PASSWORD": "root",
-        "HOST": "localhost",
-        "PORT": "3306",
-        "OPTIONS": {
-            "autocommit": True,
-            "charset": "utf8mb4",
-            "use_unicode": True,
-        },
-    },
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'linkinbio',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
     }
 }
 
