@@ -42,7 +42,7 @@
 				<div class="flex-auto hidden px-2 mx-2 navbar-center lg:flex">
 					<div class="flex items-stretch">
 						<textarea style="display: none" class="profile-link">
-							https://b2l.ink/{{user.username}}</textarea
+							http://b2l.ink/{{user.username}}</textarea
 						>
 						<a href="/{{user.username}}" target="_blank"
 							><b>/{{ user.username }}</b>
@@ -110,7 +110,7 @@
 		<div id="about" class="modal">
 			<div class="modal-box">
 				<p>
-					Bio2Link (<a href="https://b2l.ink" class="link">b2l.ink</a>) is
+					Bio2Link (<a href="http://b2l.ink" class="link">b2l.ink</a>) is
 					a free website to show your presence all over the web with just one
 					link. If you have any feedback, please let me know at
 					<a href="mailto:arjunmunji+bio2link@gmail.com" class="link"
@@ -154,7 +154,7 @@
 			})
 			copyProfileLinkButton.addEventListener('click', async (event) => {
 				if (navigator.clipboard) {
-					const profileLink = 'https://b2l.ink/{{request.user.username}}'
+					const profileLink = 'http://b2l.ink/{{request.user.username}}'
 					await navigator.clipboard.writeText(profileLink)
 				}
 			})
