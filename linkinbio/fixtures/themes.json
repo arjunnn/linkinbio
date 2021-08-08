@@ -1,0 +1,79 @@
+[
+	{ "model": "links.profiletheme", "pk": 20, "fields": { "name": "🌞 light" } },
+	{ "model": "links.profiletheme", "pk": 21, "fields": { "name": "🌚 dark" } },
+	{
+		"model": "links.profiletheme",
+		"pk": 22,
+		"fields": { "name": "🧁 cupcake" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 23,
+		"fields": { "name": "🐝 bumblebee" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 24,
+		"fields": { "name": "❇ emerald" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 25,
+		"fields": { "name": "🏢 corporate" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 26,
+		"fields": { "name": "🌃 synthwave" }
+	},
+	{ "model": "links.profiletheme", "pk": 27, "fields": { "name": "👴 retro" } },
+	{
+		"model": "links.profiletheme",
+		"pk": 28,
+		"fields": { "name": "🤖 cyberpunk" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 29,
+		"fields": { "name": "🌸 valentine" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 30,
+		"fields": { "name": "�  halloween" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 31,
+		"fields": { "name": "🌷 garden" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 32,
+		"fields": { "name": "🌲 forest" }
+	},
+	{ "model": "links.profiletheme", "pk": 33, "fields": { "name": "🐟 aqua" } },
+	{ "model": "links.profiletheme", "pk": 34, "fields": { "name": "👓 lofi" } },
+	{ "model": "links.profiletheme", "pk": 35, "fields": { "name": "🖍 pastel" } },
+	{
+		"model": "links.profiletheme",
+		"pk": 36,
+		"fields": { "name": "🧚‍♀️ fantasy" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 37,
+		"fields": { "name": "📝 wireframe" }
+	},
+	{ "model": "links.profiletheme", "pk": 38, "fields": { "name": "🏴 black" } },
+	{
+		"model": "links.profiletheme",
+		"pk": 39,
+		"fields": { "name": "💎 luxury" }
+	},
+	{
+		"model": "links.profiletheme",
+		"pk": 40,
+		"fields": { "name": "🧛‍♂️ dracula" }
+	}
+]
