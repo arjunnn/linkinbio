@@ -30,6 +30,7 @@
 		/>
 		<link rel="stylesheet" href="{% static 'css/themes.css' %}" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		{% include 'snippets/meta.html' %}
 	</head>
 
 	<body>
@@ -69,7 +70,9 @@
 					</p>
 				</div>
 			</div>
-			<p>made with 💜 by <a href="https://arjun.ninja/" target="_blank">arjun</a></p>
+			<p>
+				made with 💜 by <a href="https://arjun.ninja/" target="_blank">arjun</a>
+			</p>
 		</div>
 		<script>
 			const usernameField = document.querySelector('#id_username')
