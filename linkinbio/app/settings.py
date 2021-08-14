@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-5yb2fh4xiqby094dnk7)_0hz7*vt#zh4q9#uj)4d_1*cgnyx)l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['13.59.253.78', 'localhost', 'b2l.ink']
+ALLOWED_HOSTS = ["13.59.253.78", "localhost", "b2l.ink", "127.0.0.1"]
 
 # Application definition
 
@@ -81,7 +81,6 @@ DATABASES = {
     },
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -137,4 +136,4 @@ REST_FRAMEWORK = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
-DEFAULT_CHARSET = 'utf-8'
+DEFAULT_CHARSET = "utf-8"

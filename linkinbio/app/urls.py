@@ -26,6 +26,7 @@ from .links.views import (
     RedirectView,
     DashboardView,
     LogoutView,
+    StatsView,
 )
 
 urlpatterns = [
@@ -43,6 +44,7 @@ urlpatterns = [
     path("", SignUpView.as_view(), name="home"),
     path("dashboard", DashboardView.as_view(), name="dashboard"),
     path("r/<uuid>", RedirectView.as_view(), name="redirect"),
+    path("stats", StatsView.as_view(), name="stats"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,55 @@
+{% extends "dashboard.html" %} {% block content %}
+<div class="card m-4 lg:max-w-screen-lg justify-content-center m-auto">
+	<div class="card-body">
+		<div class="card-title">At a glance</div>
+
+		<div class="w-full shadow stats m-4">
+			<div class="stat place-items-center place-content-center">
+				<div class="stat-title">Profile Views</div>
+				<div class="stat-value">{{ profile.hits }}</div>
+				<!-- <div class="stat-desc">Jan 1st - Feb 1st</div> -->
+			</div>
+			<div class="stat place-items-center place-content-center">
+				<div class="stat-title">Link clicks</div>
+				<div class="stat-value text-success">{{ total_link_hits }}</div>
+				<!-- <div class="stat-desc text-success">↗︎ 400 (22%)</div> -->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card m-4 lg:max-w-screen-lg justify-content-center m-auto">
+	<div class="card-body">
+		<div class="card-title">By the numbers</div>
+
+		<div class="overflow-x-auto">
+			<table class="table w-full table-zebra">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>link</th>
+						<th>Clicks</th>
+						<th>Created</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for link in profile.links.all|dictsort:"hits" reversed %}
+					<tr>
+						<td>{{ forloop.counter }}</td>
+						<td>{{ link.name }}</td>
+						<td class="truncate">
+							<a href="{{ link.link }}" class="link"
+								>{{ link.link|truncatechars:50 }}</a
+							>
+						</td>
+						<td>{{ link.hits }}</td>
+						<td>{{ link.created }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

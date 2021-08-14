@@ -20,11 +20,11 @@ THEME_CHOICES = (
     ("aqua", "🐟 aqua"),
     ("lofi", "👓 lofi"),
     ("pastel", "🖍 pastel"),
-    ("‍fantasy", "🧚‍♀️ fantasy"),
+    ("fantasy", "🧚‍♀️ fantasy"),
     ("wireframe", "📝 wireframe"),
     ("black", "🏴 black"),
     ("luxury", "💎 luxury"),
-    ("‍dracula", "🧛‍♂️ dracula"),
+    ("dracula", "🧛‍♂️ dracula"),
 )
 
 
@@ -65,3 +65,4 @@ class Link(models.Model):
     active = models.BooleanField(default=True)
     uuid = models.UUIDField(default=uuid4, db_index=True, verbose_name="UUID")
     hits = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now=True)

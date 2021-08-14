@@ -8,6 +8,7 @@ from django.http.response import (
     HttpResponseBadRequest,
     HttpResponse,
 )
+from django.db.models import Sum
 from django.shortcuts import redirect
 from django.shortcuts import reverse
 from django.template.response import TemplateResponse, SimpleTemplateResponse
@@ -148,28 +149,30 @@ class DashboardView(View):
         return response
 
     def post(self, request, *args, **kwargs):
-        link_formset = self.LinkFormSet(request.POST, request.FILES)
-        edit_profile_form = EditProfileForm(
-            request.POST, instance=self.profile, files=request.FILES
-        )
-        if edit_profile_form.is_valid():
-            edit_profile_form.save()
-        else:
-            print(edit_profile_form.errors)
-        if link_formset.is_valid():
-            link_formset.save()
-            for form in link_formset:
-                instance = form.save(commit=False)
-                if not (instance.name and instance.link):
-                    continue
-                if form.cleaned_data.get("DELETE"):
-                    instance.delete()
-                else:
-                    instance.profile = request.user.profile
-                    instance.save()
-            messages.success(request, "Profile updated successfully ✨")
-        else:
-            print(link_formset.errors)
+        if "edit_profile_form" in request.POST:
+            edit_profile_form = EditProfileForm(
+                request.POST, instance=self.profile, files=request.FILES
+            )
+            if edit_profile_form.is_valid():
+                edit_profile_form.save()
+            else:
+                print(edit_profile_form.errors)
+        if "link_formset" in request.POST:
+            link_formset = self.LinkFormSet(request.POST, request.FILES)
+            if link_formset.is_valid():
+                link_formset.save()
+                for form in link_formset:
+                    instance = form.save(commit=False)
+                    if not (instance.name and instance.link):
+                        continue
+                    if form.cleaned_data.get("DELETE"):
+                        instance.delete()
+                    else:
+                        instance.profile = request.user.profile
+                        instance.save()
+                messages.success(request, "Profile updated successfully ✨")
+            else:
+                print(link_formset.errors)
         return redirect("edit-profile", username=request.user.username)
 
 
@@ -178,3 +181,16 @@ class LogoutView(View):
         if request.user.is_authenticated:
             logout(request)
         return redirect(reverse("login"))
+
+
+class StatsView(View):
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(reverse("login"))
+        context = {
+            "profile": request.user.profile,
+            "total_link_hits": request.user.profile.links.all().aggregate(
+                total_link_hits=Sum("hits")
+            )["total_link_hits"],
+        }
+        return TemplateResponse(request, "stats.html", context)
