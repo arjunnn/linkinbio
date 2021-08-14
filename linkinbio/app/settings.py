@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-5yb2fh4xiqby094dnk7)_0hz7*vt#zh4q9#uj)4d_1*cgnyx)l"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["13.59.253.78", "localhost", "b2l.ink", "127.0.0.1"]
 
@@ -78,14 +78,6 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    },
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "linkinbio",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "localhost",
-        "PORT": "5432",
     },
 }
 
