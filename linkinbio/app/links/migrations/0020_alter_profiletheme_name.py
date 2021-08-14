@@ -6,13 +6,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('links', '0019_auto_20210815_0202'),
+        ("links", "0019_auto_20210815_0202"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profiletheme',
-            name='name',
-            field=models.CharField(choices=[('light', '🌞 light'), ('dark', '🌚 dark'), ('cupcake', '🧁 cupcake'), ('bumblebee', '🐝 bumblebee'), ('emerald', '❇ emerald'), ('corporate', '🏢 corporate'), ('synthwave', '🌃 synthwave'), ('retro', '👴 retro'), ('cyberpunk', '🤖 cyberpunk'), ('valentine', '🌸 valentine'), ('halloween', '🎃 halloween'), ('garden', '🌷 garden'), ('forest', '🌲 forest'), ('aqua', '🐟 aqua'), ('lofi', '👓 lofi'), ('pastel', '🖍 pastel'), ('fantasy', '🧚\u200d♀️ fantasy'), ('wireframe', '📝 wireframe'), ('black', '🏴 black'), ('luxury', '💎 luxury'), ('dracula', '🧛\u200d♂️ dracula')], max_length=20),
+            model_name="profiletheme",
+            name="name",
+            field=models.CharField(
+                choices=[
+                    ("light", "🌞 light"),
+                    ("dark", "🌚 dark"),
+                    ("cupcake", "🧁 cupcake"),
+                    ("bumblebee", "🐝 bumblebee"),
+                    ("emerald", "❇ emerald"),
+                    ("corporate", "🏢 corporate"),
+                    ("synthwave", "🌃 synthwave"),
+                    ("retro", "👴 retro"),
+                    ("cyberpunk", "🤖 cyberpunk"),
+                    ("valentine", "🌸 valentine"),
+                    ("halloween", "🎃 halloween"),
+                    ("garden", "🌷 garden"),
+                    ("forest", "🌲 forest"),
+                    ("aqua", "🐟 aqua"),
+                    ("lofi", "👓 lofi"),
+                    ("pastel", "🖍 pastel"),
+                    ("fantasy", "🧚\u200d♀️ fantasy"),
+                    ("wireframe", "📝 wireframe"),
+                    ("black", "🏴 black"),
+                    ("luxury", "💎 luxury"),
+                    ("dracula", "🧛\u200d♂️ dracula"),
+                ],
+                max_length=20,
+            ),
         ),
     ]

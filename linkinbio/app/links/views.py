@@ -149,28 +149,30 @@ class DashboardView(View):
         return response
 
     def post(self, request, *args, **kwargs):
-        link_formset = self.LinkFormSet(request.POST, request.FILES)
-        edit_profile_form = EditProfileForm(
-            request.POST, instance=self.profile, files=request.FILES
-        )
-        if edit_profile_form.is_valid():
-            edit_profile_form.save()
-        else:
-            print(edit_profile_form.errors)
-        if link_formset.is_valid():
-            link_formset.save()
-            for form in link_formset:
-                instance = form.save(commit=False)
-                if not (instance.name and instance.link):
-                    continue
-                if form.cleaned_data.get("DELETE"):
-                    instance.delete()
-                else:
-                    instance.profile = request.user.profile
-                    instance.save()
-            messages.success(request, "Profile updated successfully ✨")
-        else:
-            print(link_formset.errors)
+        if "edit_profile_form" in request.POST:
+            edit_profile_form = EditProfileForm(
+                request.POST, instance=self.profile, files=request.FILES
+            )
+            if edit_profile_form.is_valid():
+                edit_profile_form.save()
+            else:
+                print(edit_profile_form.errors)
+        if "link_formset" in request.POST:
+            link_formset = self.LinkFormSet(request.POST, request.FILES)
+            if link_formset.is_valid():
+                link_formset.save()
+                for form in link_formset:
+                    instance = form.save(commit=False)
+                    if not (instance.name and instance.link):
+                        continue
+                    if form.cleaned_data.get("DELETE"):
+                        instance.delete()
+                    else:
+                        instance.profile = request.user.profile
+                        instance.save()
+                messages.success(request, "Profile updated successfully ✨")
+            else:
+                print(link_formset.errors)
         return redirect("edit-profile", username=request.user.username)
 
 

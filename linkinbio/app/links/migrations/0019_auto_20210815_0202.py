@@ -15,5 +15,4 @@ class Migration(migrations.Migration):
             name="created",
             field=models.DateTimeField(auto_now=True),
         ),
-
     ]
