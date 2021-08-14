@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-5yb2fh4xiqby094dnk7)_0hz7*vt#zh4q9#uj)4d_1*cgnyx)l"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['13.59.253.78', 'localhost', 'b2l.ink']
+ALLOWED_HOSTS = ["13.59.253.78", "localhost", "b2l.ink", "127.0.0.1"]
 
 # Application definition
 
@@ -79,16 +79,15 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     },
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'linkinbio',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "linkinbio",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
+    },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -145,4 +144,4 @@ REST_FRAMEWORK = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
-DEFAULT_CHARSET = 'utf-8'
+DEFAULT_CHARSET = "utf-8"

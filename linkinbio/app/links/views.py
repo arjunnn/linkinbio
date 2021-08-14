@@ -8,6 +8,7 @@ from django.http.response import (
     HttpResponseBadRequest,
     HttpResponse,
 )
+from django.db.models import Sum
 from django.shortcuts import redirect
 from django.shortcuts import reverse
 from django.template.response import TemplateResponse, SimpleTemplateResponse
@@ -178,3 +179,16 @@ class LogoutView(View):
         if request.user.is_authenticated:
             logout(request)
         return redirect(reverse("login"))
+
+
+class StatsView(View):
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(reverse("login"))
+        context = {
+            "profile": request.user.profile,
+            "total_link_hits": request.user.profile.links.all().aggregate(
+                total_link_hits=Sum("hits")
+            )["total_link_hits"],
+        }
+        return TemplateResponse(request, "stats.html", context)
