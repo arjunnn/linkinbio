@@ -140,7 +140,7 @@ class DashboardView(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect(reverse("login"))
-        link_formset = self.LinkFormSet()
+        link_formset = self.LinkFormSet(queryset=request.user.profile.links.all())
         context = {
             "edit_profile_form": EditProfileForm(instance=self.profile),
             "link_formset": link_formset,
