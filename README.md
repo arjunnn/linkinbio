@@ -1,10 +1,12 @@
-# linkinbio
+# linkinbio 🔗
 
 A simple "link in bio" service. 
 
 Live at [http://b2l.ink](http://b2l.ink)
 
 See [http://b2l.ink/arjun](http://b2l.ink/arjun) for a sample profile
+
+Features include: Dashboard with click stats 📊, profile themes 
 
 🚧 **Very much a work in progress. I'm building this in public and learning as I go** 🚧
 
